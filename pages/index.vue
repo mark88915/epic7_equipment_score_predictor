@@ -1,13 +1,13 @@
 <template>
   <ALayout class="min-h-screen">
-    <ALayoutHeader class="jp-header shadow-jp-glow">
-      <div class="max-w-6xl mx-auto px-4">
-        <div class="flex justify-between items-center py-4 md:py-6">
-          <h1 class="m-0 text-lg md:text-3xl font-bold text-white drop-shadow-lg animate-float leading-tight">
+    <ALayoutHeader class="jp-header shadow-jp-glow overflow-hidden">
+      <div class="max-w-6xl mx-auto px-4 h-full">
+        <div class="flex justify-between items-center py-4 md:py-6 h-full min-h-0">
+          <h1 class="m-0 text-lg md:text-3xl font-bold text-white drop-shadow-lg leading-tight flex-1 min-w-0 pr-4">
             <span class="hidden sm:inline">✨ {{ t('title') }} ✨</span>
             <span class="sm:hidden">{{ t('title') }}</span>
           </h1>
-          <div class="flex-shrink-0 ml-2">
+          <div class="flex-shrink-0">
             <LanguageSelector />
           </div>
         </div>
@@ -18,12 +18,12 @@
       <div class="max-w-6xl mx-auto">
         <ARow :gutter="[16, 16]">
           <ACol :xs="24" :lg="12" class="mb-4 lg:mb-0">
-            <div class="jp-card p-4 md:p-6 animate-float" style="animation-delay: 0.2s;">
+            <div class="jp-card p-4 md:p-6">
               <GearForm @calculate="handleCalculate" />
             </div>
           </ACol>
           <ACol :xs="24" :lg="12">
-            <div class="jp-card p-4 md:p-6 animate-float" style="animation-delay: 0.4s;">
+            <div class="jp-card p-4 md:p-6">
               <ResultsTable 
                 :result="calculationResult" 
               />

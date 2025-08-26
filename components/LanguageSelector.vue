@@ -1,10 +1,11 @@
 <template>
   <ASelect
-    :value="locale"
+    v-model:value="currentLocale"
     class="w-24 sm:w-36 jp-select"
     @change="changeLocale"
     placement="bottomRight"
-    :getPopupContainer="(triggerNode) => triggerNode.parentNode"
+    :open="dropdownOpen"
+    @dropdown-visible-change="onDropdownVisibleChange"
   >
     <ASelectOption value="zh-TW">
       <span class="hidden sm:inline">🇹🇼 繁體中文</span>
@@ -24,9 +25,23 @@
 <script setup lang="ts">
 const { locale, setLocale } = useI18n()
 
+const currentLocale = ref(locale.value)
+const dropdownOpen = ref(false)
+
 const changeLocale = (newLocale: string) => {
+  currentLocale.value = newLocale
   setLocale(newLocale)
+  dropdownOpen.value = false
 }
+
+const onDropdownVisibleChange = (visible: boolean) => {
+  dropdownOpen.value = visible
+}
+
+// 監聽 locale 變化並同步到 currentLocale
+watch(locale, (newLocale) => {
+  currentLocale.value = newLocale
+})
 </script>
 
 <style scoped>
@@ -82,6 +97,7 @@ const changeLocale = (newLocale: string) => {
   border-radius: 8px !important;
   box-shadow: 0 8px 32px rgba(99, 102, 241, 0.2) !important;
   border: 2px solid rgba(99, 102, 241, 0.1) !important;
+  z-index: 9999 !important;
 }
 
 :global(.ant-select-item) {
